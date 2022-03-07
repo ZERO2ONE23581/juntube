@@ -1,0 +1,17 @@
+{
+  "name": "juntube",
+  "version": "1.0.0",
+  "description": "practice node js for recap wetube",
+  "main": "index.js",
+  "scripts": {},
+  "author": "aiden",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZERO2ONE23581/juntube.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ZERO2ONE23581/juntube/issues"
+  },
+  "homepage": "https://github.com/ZERO2ONE23581/juntube#readme"
+}
