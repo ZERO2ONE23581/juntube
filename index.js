@@ -11,7 +11,12 @@ const firstmiddleware = (req, res, next) => {
   console.log("first middleware");
   next();
 };
+const secondmiddleware = (req, res, next) => {
+  console.log("second middleware");
+  return res.send("second middleware");
+  next();
+};
 
-app.get("/", firstmiddleware, handleHome);
+app.get("/", firstmiddleware, secondmiddleware, handleHome);
 
 app.listen(PORT, () => console.log(`✅ This server is on the port ${PORT} 🔥`));
