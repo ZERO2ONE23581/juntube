@@ -2,3 +2,8 @@ extends base.pug
 
 block content
   h1 you will see trending videos here
+  ul
+    each video in videos
+      li=video.title
+    else
+      li Noting found.
