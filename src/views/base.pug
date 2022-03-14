@@ -2,6 +2,18 @@ doctype html
 html(lang="ko")
   head
     title #{pageTitle} | Juntube
+    link(rel="stylesheet" href="https://unpkg.com/mvp.css")
   body
-    block content
+    header
+      h1=pageTitle      
+      nav
+        ul
+          if fakeUser.loggedIn 
+            li
+              a(href="/logout") Log out
+          else
+            li
+              a(href="/login") Log In
+    main
+      block content    
     include partials/footer.pug

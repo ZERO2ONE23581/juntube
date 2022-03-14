@@ -1,5 +1,7 @@
+const fakeUser = { username: "Junwoo", loggedIn: false };
+
 export const handleHome = (req, res) => {
-  return res.render("home", { pageTitle: "Home" });
+  return res.render("home", { pageTitle: "Home", fakeUser });
 };
 //CRUD
 export const createVideo = (req, res) => {
