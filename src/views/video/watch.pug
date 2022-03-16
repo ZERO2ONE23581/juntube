@@ -1,0 +1,10 @@
+extends ../base.pug
+
+block content
+  h3 Currently plying #{video.title}...
+  ul
+    li #{video.views} #{video.views===1?"view":"views"}
+  div
+    a(href=`${video.id}/edit`) Edit Video &rarr; 
+  div
+    a(href=`${video.id}/delete`) Delete Video &rarr;

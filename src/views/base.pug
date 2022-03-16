@@ -8,6 +8,8 @@ html(lang="ko")
       h1=pageTitle      
       nav
         ul
+          li
+            a(href="/") Home
           if fakeUser.loggedIn 
             li
               a(href="/logout") Log out
