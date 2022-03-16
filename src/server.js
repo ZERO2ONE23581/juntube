@@ -1,8 +1,10 @@
+import "./db";
+import "./models/Video";
 import express from "express";
 import morgan from "morgan";
-import rootRouter from "./src/routers/rootRouter";
-import userRouter from "./src/routers/userRouter";
-import videoRouter from "./src/routers/videoRouter";
+import rootRouter from "./routers/rootRouter";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
 
 const app = express();
 const logger = morgan("dev");

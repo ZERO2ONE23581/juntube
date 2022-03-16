@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "practice node js for recap wetube",
   "scripts": {
-    "dev": "nodemon --exec babel-node server"
+    "dev": "nodemon --exec babel-node src/server"
   },
   "author": "aiden",
   "license": "MIT",
@@ -17,6 +17,7 @@
   "homepage": "https://github.com/ZERO2ONE23581/juntube#readme",
   "dependencies": {
     "express": "^4.17.3",
+    "mongoose": "^6.2.6",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
