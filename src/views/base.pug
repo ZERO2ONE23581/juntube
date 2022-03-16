@@ -10,7 +10,9 @@ html(lang="ko")
         ul
           li
             a(href="/") Home
-          if fakeUser.loggedIn 
+          li
+            a(href="/videos/upload") Upload
+          if fakeUser.loggedIn
             li
               a(href="/logout") Log out
           else

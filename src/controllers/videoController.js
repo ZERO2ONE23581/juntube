@@ -30,8 +30,21 @@ export const handleHome = (req, res) => {
   return res.render("video/home", { pageTitle: "Home", fakeUser, videos });
 };
 //CRUD
-export const createVideo = (req, res) => {
-  return res.render("video/create", { pageTitle: "Create Video", fakeUser });
+export const getUpload = (req, res) => {
+  return res.render("video/upload", { pageTitle: "Upload Video", fakeUser });
+};
+export const postUpload = (req, res) => {
+  const { title } = req.body;
+  const newVideo = {
+    title,
+    rating: 0,
+    comments: 0,
+    createdAt: "just now",
+    views: 0,
+    id: videos.length + 1,
+  };
+  videos.push(newVideo);
+  return res.redirect("/");
 };
 export const watchVideo = (req, res) => {
   const { id } = req.params;
