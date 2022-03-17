@@ -1,10 +1,13 @@
 extends ../template/layout.pug
 
 block content
+  if errorMessage
+    p=errorMessage
   form(method='post') 
     input(required name="email" type="email" placeholder="Email")
     input(required name="username" type="text" placeholder="Username")
     input(required name="password" type="password" placeholder="Password")
+    input(required name="password2" type="password" placeholder="Confirm Password")
     input(required name="name" type="text" placeholder="Name")
     input(required name="location" type="text" placeholder="Location")    
     input(type="submit" value='Create Account')
