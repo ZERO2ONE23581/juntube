@@ -31,18 +31,27 @@ export const postUpload = async (req, res) => {
 //READ
 export const watchVideo = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById({ _id: id });
-  console.log(video);
-  return res.render("video/watch", { pageTitle: video.title, video });
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.render("error/404", { pageTitle: "Video not found" });
+  } else {
+    return res.render("video/watch", { pageTitle: video.title, video });
+  }
 };
 //UPDATE
-export const getEdit = (req, res) => {
+export const getEdit = async (req, res) => {
   const { id } = req.params;
-  return res.render("video/edit");
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.render("error/404", { pageTitle: "Video not found" });
+  } else {
+    return res.render("video/edit", { video, pageTitle: `Edit ${video.title}` });
+  }
 };
 export const postEdit = (req, res) => {
   const { id } = req.params;
-  const { title } = req.body;
+  const { title, description, hashtags } = req.body;
+  console.log(title, description, hashtags);
   return res.redirect(`/videos/${id}`);
 };
 //DELETE

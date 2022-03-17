@@ -3,5 +3,7 @@ extends ../layout.pug
 block content
   h3 Edit #{video.title}...
   form(method='POST')
-    input(name="title" required value=video.title type="text" placeholder="Video Title") 
+    input(name="title" required value=video.title type="text" placeholder="Edit Title") 
+    input(name="description" required value=video.description type="text" placeholder="Edit description") 
+    input(name="hashtags" required value=video.hashtags.join() type="text" placeholder="Edit hashtags") 
     input(type="submit" value="Save")
