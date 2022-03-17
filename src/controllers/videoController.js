@@ -18,7 +18,9 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: hashtags.split(",").map((word) => `#${word}`),
+      hashtags: hashtags
+        .split(",")
+        .map((word) => (word.startsWith("#") ? word : `#${word}`)),
     });
     return res.redirect("/");
   } catch (error) {
@@ -45,14 +47,24 @@ export const getEdit = async (req, res) => {
   if (!video) {
     return res.render("error/404", { pageTitle: "Video not found" });
   } else {
-    return res.render("video/edit", { video, pageTitle: `Edit ${video.title}` });
+    return res.render("video/edit", { video, pageTitle: `Edit <${video.title}>` });
   }
 };
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
-  console.log(title, description, hashtags);
-  return res.redirect(`/videos/${id}`);
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.render("error/404", { pageTitle: "Video not found" });
+  } else {
+    video.title = title;
+    video.description = description;
+    video.hashtags = hashtags
+      .split(",")
+      .map((word) => (word.startsWith("#") ? word : `#${word}`));
+    await video.save();
+    return res.redirect(`/videos/${id}`);
+  }
 };
 //DELETE
 export const deleteVideo = (req, res) => {

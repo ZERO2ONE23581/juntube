@@ -1,7 +1,6 @@
 extends ../layout.pug
 
-block content
-  h3 Edit #{video.title}...
+block content  
   form(method='POST')
     input(name="title" required value=video.title type="text" placeholder="Edit Title") 
     input(name="description" required value=video.description type="text" placeholder="Edit description") 

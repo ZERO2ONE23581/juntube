@@ -2,8 +2,10 @@ extends ../layout.pug
 
 block content  
   div
-    p=video.description  
-    small #{video.createdAt}  
+    h3=video.description  
+    p #{video.hashtags}  
+    div
+      small #{video.createdAt}    
   div
     a(href=`${video.id}/edit`) Edit video &rarr; 
   div
