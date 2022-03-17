@@ -3,7 +3,6 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({});
-    console.log(videos);
     return res.render("video/home", { pageTitle: "Home", videos });
   } catch {
     return res.send(`server-error`);
@@ -15,19 +14,26 @@ export const getUpload = (req, res) => {
 };
 export const postUpload = async (req, res) => {
   const { title, description, hashtags } = req.body;
-  await Video.create({
-    title,
-    description,
-    createdAt: Date.now(),
-    meta: { views: 0, rating: 0 },
-    hashtags: hashtags.split(",").map((word) => `#${word}`),
-  });
-  return res.redirect("/");
+  try {
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(",").map((word) => `#${word}`),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("video/upload", {
+      pageTitle: "Upload Video",
+      errorMessage: error._message,
+    });
+  }
 };
 //READ
-export const watchVideo = (req, res) => {
+export const watchVideo = async (req, res) => {
   const { id } = req.params;
-  return res.render("video/watch");
+  const video = await Video.findById({ _id: id });
+  console.log(video);
+  return res.render("video/watch", { pageTitle: video.title, video });
 };
 //UPDATE
 export const getEdit = (req, res) => {
@@ -36,7 +42,6 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
   const { title } = req.body;
   return res.redirect(`/videos/${id}`);
 };

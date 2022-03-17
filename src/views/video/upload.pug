@@ -1,6 +1,10 @@
 extends ../layout.pug
 
-block content
+block content  
+  div
+    if errorMessage    
+      span=errorMessage
+  br
   form(method='POST') 
     input(name="title" type="text" placeholder="Video Title", required)
     input(name="description" type="text" placeholder="Video Description", required)

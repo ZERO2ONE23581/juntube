@@ -1,10 +1,10 @@
 extends ../layout.pug
 
-block content
-  h3 Currently plying #{video.title}...
-  ul
-    li #{video.views} #{video.views===1?"view":"views"}
+block content  
   div
-    a(href=`${video.id}/edit`) Edit Video &rarr; 
+    p=video.description  
+    small #{video.createdAt}  
   div
-    a(href=`${video.id}/delete`) Delete Video &rarr;
+    a(href=`${video.id}/edit`) Edit video &rarr; 
+  div
+    a(href=`${video.id}/delete`) Delete video &rarr;
