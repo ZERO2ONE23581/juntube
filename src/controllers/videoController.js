@@ -3,7 +3,11 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
-    return res.render("home", { pageTitle: "JUNTUBE", videos });
+    if (!videos) {
+      return res.status(404).render("error/404", { pageTitle: "Video not found" });
+    } else {
+      return res.render("home", { pageTitle: "JUNTUBE", videos });
+    }
   } catch {
     return res.send(`server-error`);
   }
@@ -22,7 +26,7 @@ export const postUpload = async (req, res) => {
     });
     return res.redirect("/");
   } catch (error) {
-    return res.render("video/upload", {
+    return res.status(400).render("video/upload", {
       pageTitle: "Upload Video",
       errorMessage: error._message,
     });
@@ -33,7 +37,7 @@ export const watchVideo = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
   if (!video) {
-    return res.render("error/404", { pageTitle: "Video not found" });
+    return res.status(404).render("error/404", { pageTitle: "Video not found" });
   } else {
     return res.render("video/watch", { pageTitle: video.title, video });
   }
@@ -43,7 +47,7 @@ export const getEdit = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
   if (!video) {
-    return res.render("error/404", { pageTitle: "Video not found" });
+    return res.status(404).render("error/404", { pageTitle: "Video not found" });
   } else {
     return res.render("video/edit", { video, pageTitle: `Edit <${video.title}>` });
   }
@@ -53,7 +57,7 @@ export const postEdit = async (req, res) => {
   const { title, description, hashtags } = req.body;
   const video = await Video.exists({ _id: id }); //exists method returns TRUE when there is a data with condition (filtered)
   if (!video) {
-    return res.render("error/404", { pageTitle: "Video not found" });
+    return res.status(404).render("error/404", { pageTitle: "Video not found" });
   } else {
     await Video.findByIdAndUpdate(id, {
       title,
