@@ -1,8 +1,8 @@
 import express from "express";
-import { handleHome } from "../controllers/videoController";
+import { home } from "../controllers/videoController";
 
 const rootRouter = express.Router();
 
-rootRouter.route("/").get(handleHome);
+rootRouter.route("/").get(home);
 
 export default rootRouter;

@@ -1,5 +1,3 @@
-import "./db";
-import "./models/Video";
 import express from "express";
 import morgan from "morgan";
 import rootRouter from "./routers/rootRouter";
@@ -17,5 +15,4 @@ app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
-const PORT = 4004;
-app.listen(PORT, () => console.log(`✅ Juntube server is on the port ${PORT} 🔥`));
+export default app;

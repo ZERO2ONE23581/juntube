@@ -1,68 +1,48 @@
-const fakeUser = { username: "Junwoo", loggedIn: false };
-const videos = [
-  {
-    title: "Video 1",
-    rating: 5,
-    comments: 2,
-    createdAt: "2 minutes ago",
-    views: 1,
-    id: 1,
-  },
-  {
-    title: "Video 2",
-    rating: 5,
-    comments: 2,
-    createdAt: "2 minutes ago",
-    views: 11,
-    id: 2,
-  },
-  {
-    title: "Video 3",
-    rating: 5,
-    comments: 2,
-    createdAt: "2 minutes ago",
-    views: 111,
-    id: 3,
-  },
-];
+import Video from "../models/Video";
 
-export const handleHome = (req, res) => {
-  return res.render("video/home", { pageTitle: "Home", fakeUser, videos });
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    console.log(videos);
+    return res.render("video/home", { pageTitle: "Home", videos });
+  } catch {
+    return res.send(`server-error`);
+  }
 };
-//CRUD
+//CREATE
 export const getUpload = (req, res) => {
-  return res.render("video/upload", { pageTitle: "Upload Video", fakeUser });
+  return res.render("video/upload", { pageTitle: "Upload Video" });
 };
 export const postUpload = (req, res) => {
-  const { title } = req.body;
-  const newVideo = {
+  const { title, description, hashtags } = req.body;
+  console.log(title, description, hashtags);
+  const video = new Video({
     title,
-    rating: 0,
-    comments: 0,
-    createdAt: "just now",
-    views: 0,
-    id: videos.length + 1,
-  };
-  videos.push(newVideo);
+    description,
+    createdAt: Date.now(),
+    meta: { views: 0, rating: 0 },
+    hashtags: hashtags.split(",").map((word) => `#${word}`),
+  });
+  console.log(video);
   return res.redirect("/");
 };
+//READ
 export const watchVideo = (req, res) => {
   const { id } = req.params;
-  const video = videos[id - 1];
-  return res.render("video/watch", { pageTitle: video.title, fakeUser, video });
+  return res.render("video/watch");
 };
+//UPDATE
 export const getEdit = (req, res) => {
   const { id } = req.params;
-  const video = videos[id - 1];
-  return res.render("video/edit", { video, pageTitle: `Edit ${video.title}`, fakeUser });
+  return res.render("video/edit");
 };
 export const postEdit = (req, res) => {
   const { id } = req.params;
   console.log(req.body);
-  const { title } = req.body; //post method //express urlencoded NEEDED!
-  videos[id - 1].title = title;
+  const { title } = req.body;
   return res.redirect(`/videos/${id}`);
 };
+//DELETE
 export const deleteVideo = (req, res) => {
-  return res.render("video/delete", { pageTitle: "Delete Video", fakeUser });
+  return res.render("video/delete");
 };
