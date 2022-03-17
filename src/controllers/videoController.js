@@ -3,13 +3,9 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
-    if (!videos) {
-      return res.status(404).render("error/404", { pageTitle: "Video not found" });
-    } else {
-      return res.render("home", { pageTitle: "JUNTUBE", videos });
-    }
-  } catch {
-    return res.send(`server-error`);
+    return res.render("home", { pageTitle: "JUNTUBE", videos });
+  } catch (error) {
+    return res.status(404).render("error/404", { pageTitle: error._message });
   }
 };
 //CREATE

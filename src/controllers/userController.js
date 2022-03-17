@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => {
   return res.render("user/join", { pageTitle: "Sign Up" });
@@ -12,27 +13,52 @@ export const postJoin = async (req, res) => {
       pageTitle,
       errorMessage: `This username/email is already taken!`,
     });
-  }
-  if (password !== password2) {
+  } else if (password !== password2) {
     return res.status(400).render("user/join", {
       pageTitle,
       errorMessage: `Password confirmation doesn't match!`,
     });
+  } else {
+    try {
+      await User.create({
+        email,
+        username,
+        password,
+        name,
+        location,
+      });
+      return res.redirect("/login");
+    } catch (error) {
+      return res.status(400).render("user/join", {
+        pageTitle,
+        errorMessage: error._message,
+      });
+    }
   }
-  await User.create({
-    email,
-    username,
-    password,
-    name,
-    location,
-  });
-  return res.redirect("/login");
 };
 export const getLogin = (req, res) => {
   return res.render(`user/login`, { pageTitle: "Login" });
 };
-export const postLogin = (req, res) => {
-  return;
+export const postLogin = async (req, res) => {
+  const pageTitle = "Login";
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.render("user/login", {
+      pageTitle,
+      errorMessage: "An account with this username doesn't exists!",
+    });
+  }
+  const pwMatch = await bcrypt.compare(password, user.password);
+  if (!pwMatch) {
+    return res.render("user/login", {
+      pageTitle,
+      errorMessage: "Wrong password!",
+    });
+  } else {
+    console.log(`YOU NEED TO LEARN SESSION NOW..`);
+    return res.redirect("/login");
+  }
 };
 export const getEdit = (req, res) => {
   return res.send("<h1>Edit</h1>");
