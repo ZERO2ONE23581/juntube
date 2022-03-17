@@ -3,7 +3,9 @@ extends ../layout.pug
 block content  
   div
     h3=video.description  
-    p #{video.hashtags}  
+    ul
+      each hashtag in video.hashtags
+        li=hashtag
     div
       small #{video.createdAt}    
   div
