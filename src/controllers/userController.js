@@ -49,16 +49,16 @@ export const postLogin = async (req, res) => {
       errorMessage: "An account with this username doesn't exists!",
     });
   }
-  const pwMatch = await bcrypt.compare(password, user.password);
-  if (!pwMatch) {
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
     return res.render("user/login", {
       pageTitle,
       errorMessage: "Wrong password!",
     });
-  } else {
-    console.log(`YOU NEED TO LEARN SESSION NOW..`);
-    return res.redirect("/login");
   }
+  req.session.loggedIn = true;
+  req.session.user = user;
+  return res.redirect("/");
 };
 export const getEdit = (req, res) => {
   return res.send("<h1>Edit</h1>");
