@@ -66,7 +66,10 @@ export const logout = (req, res) => {
 };
 
 export const getEdit = (req, res) => {
-  return res.send("<h1>Edit</h1>");
+  return res.render("user/edit-profile", { pageTitle: "Edit Profile" });
+};
+export const postEdit = (req, res) => {
+  return;
 };
 export const deleteUser = (req, res) => {
   return res.send("<h1>Delete</h1>");

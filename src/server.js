@@ -1,9 +1,8 @@
-console.log(process.env.COOKIE_SECRET, process.env.DB_URL);
 import MongoStore from "connect-mongo";
 import express from "express";
 import session from "express-session";
 import morgan from "morgan";
-import { localsMiddleware } from "../middleware";
+import { localsMiddleware } from "./middleware";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
