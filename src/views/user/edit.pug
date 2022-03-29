@@ -3,7 +3,9 @@ extends ../template/layout.pug
 block content
   if errorMessage
     p=errorMessage
-  form(method='post') 
+  form(method='post' enctype="multipart/form-data") 
+    label(for="avatar") Avatar
+    input(type="file" id="avatar" name="avatar" accept="image/*")
     input(value=loggedInUser.email required name="email" type="email" placeholder="Email")
     input(value=loggedInUser.username required name="username" type="text" placeholder="Username")    
     input(value=loggedInUser.name required name="name" type="text" placeholder="Name")

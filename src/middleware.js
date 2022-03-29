@@ -1,3 +1,5 @@
+import multer from "multer";
+
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "준튜브";
   res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -21,3 +23,7 @@ export const loggedOutUserOnly = (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+export const uploadFile = multer({
+  dest: "uploads/",
+});
