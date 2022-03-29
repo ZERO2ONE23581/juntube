@@ -1,6 +1,7 @@
 extends ../template/layout.pug
 
 block content  
+  video(src="/"+video.fileUrl controls width="1000" height="500") 
   div
     h3=video.description  
     ul

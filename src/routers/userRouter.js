@@ -5,7 +5,7 @@ import {
   getChangePassword,
   postChangePassword,
 } from "../controllers/userController";
-import { loggedInUserOnly, uploadFile } from "../middleware";
+import { avatarUploads, loggedInUserOnly } from "../middleware";
 
 const userRouter = express.Router();
 
@@ -13,7 +13,7 @@ userRouter
   .route("/edit")
   .all(loggedInUserOnly)
   .get(getEdit)
-  .post(uploadFile.single("avatar"), postEdit);
+  .post(avatarUploads.single("avatar"), postEdit);
 userRouter
   .route("/change-password")
   .all(loggedInUserOnly)
