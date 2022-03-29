@@ -17,13 +17,13 @@ html(lang="ko")
               a(href="/my-profile") #{loggedInUser.username}'s Profile
             li
               a(href="/users/edit") Edit Profile
+            li
+              a(href="/videos/upload") Upload Video
           else
             li
               a(href="/join") Register
             li
               a(href="/login") Log in
-          li
-            a(href="/videos/upload") Upload Video
           li
             a(href="/videos/search") Search Video
     main
